@@ -14,6 +14,9 @@ module.exports = {
             use: "babel-loader"
         }]
     },
+    devServer: {
+        historyApiFallback:true
+    },
     plugins: [
     new HtmlWebpackPlugin({
         template: "./index.html"

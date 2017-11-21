@@ -1,7 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
+import App from './components/App';
+
+import { BrowserRouter as Router } from 'react-router-dom';
 
 render(
-    <h1>It's working!!</h1>,
+    <Router>
+        <App />
+    </Router>,
     document.getElementById("app")
 );
