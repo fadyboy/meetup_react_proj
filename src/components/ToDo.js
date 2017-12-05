@@ -1,6 +1,7 @@
 import React from 'react';
 import CreateItem from './CreateItem';
 import ListItems from './ListItems';
+import axios from 'axios';
 
 export default class ToDo extends React.Component {
 
@@ -12,8 +13,36 @@ export default class ToDo extends React.Component {
         }
     }
 
+    componentDidMount(){
+        this.getListofTodos();
+    }
+
+    getListofTodos(){
+        var url = "http://localhost:3000/api/items";
+        axios.get(url)
+          .then((response)=>{
+            this.setState({
+                items:response.data
+            });
+          })
+    }
+
+    async saveTodo(task){
+        var url = "http://localhost:3000/api/items";
+        await axios.post(url, task)
+        .then((response)=>{
+            console.log("post ", response.data);
+            return response.data;
+        })
+        .catch((error)=>{
+            console.log("Error ", error)
+        })
+    }
+
     createTask(item){
+        this.saveTodo(item);
         this.state.items.push(item);
+        this.getListofTodos();
         this.setState({
             items: this.state.items
         });
